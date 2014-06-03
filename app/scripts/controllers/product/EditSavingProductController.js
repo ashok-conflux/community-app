@@ -8,6 +8,7 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
+            scope.filteredChargeOptions = [];
 
             resourceFactory.savingProductResource.get({savingProductId: routeParams.id, template: 'true'}, function (data) {
                 scope.product = data;
@@ -27,6 +28,7 @@
                     minRequiredOpeningBalance: data.minRequiredOpeningBalance,
                     lockinPeriodFrequency: data.lockinPeriodFrequency,
                     withdrawalFeeForTransfers: data.withdrawalFeeForTransfers == true ? 'true' : 'false',
+                    depositFeeForTransfers: data.depositFeeForTransfers == true ? 'true' : 'false',
                     interestCompoundingPeriodType: data.interestCompoundingPeriodType.id,
                     interestPostingPeriodType: data.interestPostingPeriodType.id,
                     interestCalculationType: data.interestCalculationType.id,
@@ -108,7 +110,16 @@
                     });
                 }
 
+                scope.filterCharges();
             });
+
+            scope.filterCharges = function () {
+                _.each(scope.product.chargeOptions, function (v, k) {
+                    if (!v.applicableToAllProducts) {
+                        scope.filteredChargeOptions.push(v);
+                    }
+                });
+            };
 
             //advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {

@@ -74,7 +74,19 @@
                     <td>{{'label.input.frequencyInterval' | translate}}</td>
                     <td>{{charge.feeInterval}}</td>
                 </tr>
+                <tr ng-show="charge.chargeAppliesTo === 2">
+                    <td>{{'label.heading.applicableToAllProducts' | translate}}</td>
+                    <td>{{charge.applicableToAllProducts}}</td>
+                </tr>
+                <tr ng-show="charge.chargeAppliesTo.id === 2 && paymentType != ''">
+                    <td>{{'label.heading.paymenttype' | translate}}</td>
+                    <td>{{paymentType.name}}</td>
+                </tr>
+                <tr ng-show="charge.chargeAppliesTo.id === 2 && paymentType != ''">
+                    <td>{{'label.heading.applicableToAllProducts' | translate}}</td>
+                    <td>{{charge.applicableToAllProducts | YesOrNo}}</td>
+                </tr>
             </table>
-        </div>
     </div>
+</div>
 </div>

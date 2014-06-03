@@ -3,8 +3,26 @@
         ViewChargeController: function (scope, routeParams, resourceFactory, location, $modal) {
             scope.charge = [];
             scope.choice = 0;
-            resourceFactory.chargeResource.get({chargeId: routeParams.id}, function (data) {
+            scope.paymentTypeCharges = [];
+            scope.paymentTypes = [];
+            scope.paymentTypeOptions = [];
+            scope.chargeCalculationTypeOptions = [];
+            scope.paymentType = '';
+
+            resourceFactory.chargeResource.getCharge({chargeId: routeParams.id, template: true}, function (data) {
                 scope.charge = data;
+                scope.paymentTypeCharges = data.paymentTypeCharges;
+                scope.paymentTypeOptions = data.paymentTypeOptions;
+                scope.chargeCalculationType = data.chargeCalculationType;
+                scope.chargeCalculationTypeOptions = data.savingsChargeCalculationTypeOptions;
+                scope.populatePaymentTypes = function () {
+                    _.each(scope.paymentTypeCharges, function (paymentTypeCharge) {
+                        scope.paymentType = {
+                            name: paymentTypeCharge.paymentType.name
+                        };
+                    });
+                }
+                scope.populatePaymentTypes();
             });
 
             scope.deleteCharge = function () {

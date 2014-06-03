@@ -8,6 +8,7 @@
             scope.specificIncomeaccounts = [];
             scope.penaltySpecificIncomeaccounts = [];
             scope.configureFundOption = {};
+            scope.filteredChargeOptions = [];
 
             resourceFactory.savingProductResource.get({resourceType: 'template'}, function (data) {
                 scope.product = data;
@@ -53,8 +54,17 @@
                 }
                 scope.formData.accountingRule = '1';
 
+                scope.filterCharges();
+
             });
 
+            scope.filterCharges = function () {
+                _.each(scope.product.chargeOptions, function (v, k) {
+                   if (!v.applicableToAllProducts) {
+                        scope.filteredChargeOptions.push(v);
+                   }
+                });
+            };
             //advanced accounting rule
             scope.showOrHide = function (showOrHideValue) {
 

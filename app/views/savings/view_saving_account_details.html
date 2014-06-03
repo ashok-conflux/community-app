@@ -297,6 +297,7 @@
                     <table class="table width100">
                         <tr class="graybg">
                             <th>{{'label.heading.name' | translate}}</th>
+                            <th>{{'label.heading.paymentType' | translate}}</th>
                             <th>{{'label.heading.feeorpenalty' | translate}}</th>
                             <th></th>
                             <th>{{'label.heading.paymentdueat' | translate}}</th>
@@ -315,6 +316,7 @@
                         </tr>
                         <tr class="pointer-main" ng-repeat="charge in charges">
                             <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.name}}</td>
+                            <td class="pointer" data-ng-click="viewCharge(charge.id)">{{charge.paymentType.name}}</td>
                             <td class="pointer" data-ng-click="viewCharge(charge.id)" ng-show="'charge.penalty'==true">{{"penalty"}}</td>
                             <td class="pointer" data-ng-click="viewCharge(charge.id)" ng-hide="'charge.penalty'==true">{{"fee"}}</td>
                             <td class="pointer" data-ng-click="viewCharge(charge.id)"></td>

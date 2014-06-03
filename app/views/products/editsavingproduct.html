@@ -202,7 +202,12 @@
                     <input id="withdrawalFeeForTransfers" type="checkbox" ng-model="formData.withdrawalFeeForTransfers"
                            ng-true-value="true" ng-false-value="false">
                 </td>
-                <td class="width40"></td>
+                <td class="width40">
+                    <label class="control-label">{{ 'label.input.applydepositfeefortransfers' | translate
+                        }}&nbsp;</label>
+                    <input id="depositFeeForTransfers" type="checkbox" ng-model="formData.depositFeeForTransfers"
+                           ng-true-value="true" ng-false-value="false">
+                </td>
             </tr>
             <tr>
                 <td class="width40">
@@ -230,7 +235,7 @@
     </td>
     <td class="blockquoteresult">
         <form class="form-inline">
-            <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in product.chargeOptions"
+            <select ng-model="chargeId" ng-options="charge.id as charge.name for charge in filteredChargeOptions"
                     value="{{charge.id}}" class="form-control width170px">
                 <option class="displaynone" value="">{{'label.selectcharge' | translate}}</option>
             </select>

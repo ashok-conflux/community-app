@@ -7,32 +7,39 @@
             scope.restrictDate = new Date();
             scope.clientId = routeParams.clientId;
             scope.groupId = routeParams.groupId;
+            scope.chargeOptions = [];
             if (routeParams.centerEntity) {
                 scope.centerEntity = true;
             }
             scope.charges = [];
             scope.inparams = {};
             if (scope.clientId) {
-                scope.inparams.clientId = scope.clientId
-            }
-            ;
+                scope.inparams.clientId = scope.clientId;
+            };
             if (scope.groupId) {
-                scope.inparams.groupId = scope.groupId
-            }
-            ;
+                scope.inparams.groupId = scope.groupId;
+            };
             if (scope.centerId) {
-                scope.inparams.centerId = scope.centerId
-            }
-            ;
+                scope.inparams.centerId = scope.centerId;
+            };
 
             scope.inparams.staffInSelectedOfficeOnly = true;
             
             resourceFactory.savingsTemplateResource.get(scope.inparams, function (data) {
                 scope.products = data.productOptions;
-                scope.chargeOptions = data.chargeOptions;
+                //scope.chargeOptions = data.chargeOptions;
                 scope.clientName = data.clientName;
                 scope.groupName = data.groupName;
+                scope.filterCharges(data.chargeOptions);
             });
+
+            scope.filterCharges = function (chargeOptions) {
+                _.each(chargeOptions, function (v, k) {
+                    if (!v.applicableToAllProducts) {
+                        scope.chargeOptions.push(v);
+                    }
+                });
+            };
 
             scope.changeProduct = function () {
                 scope.inparams.productId = scope.formData.productId;
@@ -54,7 +61,8 @@
                     /* FIX-ME: uncomment annualFeeAmount when datepicker avialable, because it depends on the date field 'annualFeeOnMonthDay'*/
                     //scope.formData.annualFeeAmount = data.annualFeeAmount;
                     scope.formData.withdrawalFeeAmount = data.withdrawalFeeAmount;
-                    scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers;
+                    scope.formData.withdrawalFeeForTransfers = data.withdrawalFeeForTransfers == true ? 'true' : 'false';
+                    scope.formData.depositFeeForTransfers = data.depositFeeForTransfers == true ? 'true' : 'false';
                     scope.formData.allowOverdraft = data.allowOverdraft;
                     scope.formData.overdraftLimit = data.overdraftLimit;
 
