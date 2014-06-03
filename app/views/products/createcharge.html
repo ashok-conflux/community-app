@@ -6,7 +6,7 @@
             <li class="active">{{'label.anchor.createcharge' | translate}}</li>
         </ul>
     </div>
-    <form name="createchargeform" novalidate="" class="form-horizontal" rc-submit="submit()">
+    <form name="createchargeform" novalidate="" class="form-horizontal well" rc-submit="submit()">
         <api-validate></api-validate>
         <fieldset>
             <div class="form-group">
@@ -72,6 +72,18 @@
                             <option value="">{{'label.selectone' | translate}}</option>
                         </select>
                         <form-validate valattributeform="createchargeform" valattribute="chargecalculation"/>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="formData.chargeAppliesTo === 2 && showPaymentType">
+                    <label class="control-label col-sm-2">{{'label.input.paymenttype' | translate}}</label>
+                    <div class="col-sm-3">
+                        <select id="paymentType" ng-change="showOrHideApplicableToAllSavings()"
+                                class="form-control width170px"
+                                ng-model="paymentType"
+                                ng-options="id.id as id.name for id in paymentTypeOptions"
+                                value="{{id.id}}">
+                            <option value="">{{'label.selectone' | translate}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group" ng-show="showChargePaymentByField">
@@ -165,6 +177,15 @@
                     <div class="col-sm-3">
                         <label class="checkbox">
                             <input id="ispenalty" type="checkbox" ng-model="formData.penalty" ng-true-value="true"
+                                   ng-false-value="false">
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="showApplicableToAllProducts">
+                    <label class="control-label col-sm-2" for="applicableToAllProducts">{{'label.input.applytoall' | translate}}</label>
+                    <div class="col-sm-3">
+                        <label class="checkbox">
+                            <input id="applicableToAllProducts" type="checkbox" ng-model="formData.applicableToAllProducts" ng-true-value="true"
                                    ng-false-value="false">
                         </label>
                     </div>
